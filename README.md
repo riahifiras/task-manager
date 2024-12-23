@@ -1,3 +1,7 @@
+Here's an updated version of your README file with the requested changes:
+
+---
+
 # Task Manager
 
 A full-stack application where users can manage their tasks. The project includes both a frontend and a backend, each residing in its own directory.
@@ -11,6 +15,8 @@ A full-stack application where users can manage their tasks. The project include
 - [API Endpoints](#api-endpoints)
 - [Environment Variables](#environment-variables)
 - [Running the Application](#running-the-application)
+- [Testing the API with Swagger](#testing-the-api-with-swagger)
+- [Unit Tests](#unit-tests)
 - [License](#license)
 
 ---
@@ -65,7 +71,6 @@ The frontend is located in the `frontend` directory. It uses **Next.js** for Rea
    npm run dev
    ```
 
-4. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
 
 ---
 
@@ -97,7 +102,7 @@ The backend is located in the `backend` directory. It uses **NestJS** with **Typ
    npm run start:dev
    ```
 
-6. The backend API will be available at [http://localhost:3001](http://localhost:3001).
+6. The backend API will be available at [http://localhost:3000](http://localhost:3000).
 
 ---
 
@@ -154,10 +159,36 @@ JWT_SECRET=your-jwt-secret
 
 ---
 
+## Testing the API with Swagger
+
+You can test the API using Swagger by following these steps:
+
+1. Run the backend server (`npm run start:dev`).
+2. Visit `http://localhost:3000/api` in your browser.
+3. You will see the Swagger UI where you can explore and test all the available API endpoints interactively.
+
+---
+
+## Unit Tests
+
+The backend includes unit tests to ensure that the application functions as expected.
+
+### Running the Unit Tests
+
+To run the unit tests for the backend, follow these steps:
+
+1. Navigate to the `backend` directory.
+2. Run the following command:
+   ```bash
+   npm run test
+   ```
+
+This will execute the unit tests and show the results in the terminal.
+
+---
+
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
 
 ---
-
-Feel free to adjust any specific details based on the structure and requirements of your project!
