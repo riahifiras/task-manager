@@ -9,11 +9,13 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+console.log(process.env.JWT_SECRET);
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: String(process.env.JWT_SECRET),
       signOptions: { expiresIn: '360s' },
     }),
   ],
