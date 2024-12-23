@@ -12,7 +12,7 @@ describe('TaskController', () => {
     create: jest.fn(),
     findAll: jest.fn(),
     findOne: jest.fn(),
-    update: jest.fn(),
+    patch: jest.fn(),
     remove: jest.fn(),
   };
 
@@ -69,9 +69,12 @@ describe('TaskController', () => {
       updatedTask.id = 1;
       updatedTask.title = 'Updated Task';
       updatedTask.description = 'Updated description';
-      mockTaskService.update.mockResolvedValue(updatedTask);
+      mockTaskService.patch.mockResolvedValue(updatedTask);
 
-      expect(await taskController.update(1, { isCompleted: true }, { user: { userId: 1 } })).toBe(updatedTask);
+      const patchData = { title: 'Updated Task', description: 'Updated description' };
+
+      expect(await taskController.patch(1, patchData, { user: { userId: 1 } })).toEqual(updatedTask);
+      expect(mockTaskService.patch).toHaveBeenCalledWith(1, patchData, 1); 
     });
   });
 

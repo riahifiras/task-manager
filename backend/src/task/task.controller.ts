@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body, Put, Delete, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Put, Delete, Patch, UseGuards, Request } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Task } from './task.entity';
@@ -35,16 +35,17 @@ export class TaskController {
     return this.taskService.findOne(id, req.user.userId);
   }
 
-  @Put(':id')
+  @Patch(':id') 
   @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Update a task by ID' })
-  @ApiResponse({ status: 200, description: 'Task updated', type: Task })
-  update(
+  @ApiOperation({ summary: 'Partially update a task by ID' })
+  @ApiResponse({ status: 200, description: 'Task partially updated', type: Task })
+  @ApiResponse({ status: 404, description: 'Task not found' })
+  patch(
     @Param('id') id: number,
-    @Body() updateTask: { isCompleted: boolean },
+    @Body() updateTask: { title?: string; description?: string; status?: string }, 
     @Request() req,
   ): Promise<Task> {
-    return this.taskService.update(id, updateTask.isCompleted, req.user.userId);
+    return this.taskService.patch(id, updateTask, req.user.userId);
   }
 
   @Delete(':id')

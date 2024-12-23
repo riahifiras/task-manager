@@ -23,14 +23,17 @@ export class TaskService {
     return this.taskRepository.findOne({ where: { id, userId } });
   }
 
-  async update(id: number, isCompleted: boolean, userId: number): Promise<Task> {
+  async patch(id: number, updateTask: Partial<Task>, userId: number): Promise<Task> {
     const task = await this.taskRepository.findOne({ where: { id, userId } });
-    if (task) {
-      task.isCompleted = isCompleted;
-      return this.taskRepository.save(task);
+    if (!task) {
+      throw new Error('Task not found');
     }
-    throw new Error('Task not found');
+  
+    Object.assign(task, updateTask); 
+    await this.taskRepository.save(task);
+    return task;
   }
+  
 
   async remove(id: number, userId: number): Promise<void> {
     const task = await this.taskRepository.findOne({ where: { id, userId } });
