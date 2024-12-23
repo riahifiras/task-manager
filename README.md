@@ -1,7 +1,3 @@
-Here's an updated version of your README file with the requested changes:
-
----
-
 # Task Manager
 
 A full-stack application where users can manage their tasks. The project includes both a frontend and a backend, each residing in its own directory.
