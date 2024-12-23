@@ -74,4 +74,3 @@ export function TaskForm({ task, onComplete }: TaskFormProps) {
     </form>
   );
 }
-

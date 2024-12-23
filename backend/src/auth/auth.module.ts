@@ -4,13 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
-import { User } from './user.entity'; // Assuming User entity is created
+import { User } from './user.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
-      secret: 'secretKey', // Store in environment variable for security
+      secret: 'secretKey',
       signOptions: { expiresIn: '60s' },
     }),
   ],

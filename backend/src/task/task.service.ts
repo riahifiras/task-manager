@@ -10,24 +10,32 @@ export class TaskService {
     private taskRepository: Repository<Task>,
   ) {}
 
-  create(title: string, description: string): Promise<Task> {
-    const task = this.taskRepository.create({ title, description });
+  async create(title: string, description: string, userId: number): Promise<Task> {
+    const task = this.taskRepository.create({ title, description, userId });
     return this.taskRepository.save(task);
   }
 
-  findAll(): Promise<Task[]> {
-    return this.taskRepository.find();
+  async findAll(userId: number): Promise<Task[]> {
+    return this.taskRepository.find({ where: { userId } });
   }
 
-  findOne(id: number): Promise<Task> {
-    return this.taskRepository.findOne({ where: { id } });
-  }  
-
-  update(id: number, isCompleted: boolean): Promise<Task> {
-    return this.taskRepository.save({ id, isCompleted });
+  async findOne(id: number, userId: number): Promise<Task> {
+    return this.taskRepository.findOne({ where: { id, userId } });
   }
 
-  remove(id: number): Promise<void> {
-    return this.taskRepository.delete(id).then(() => {});
+  async update(id: number, isCompleted: boolean, userId: number): Promise<Task> {
+    const task = await this.taskRepository.findOne({ where: { id, userId } });
+    if (task) {
+      task.isCompleted = isCompleted;
+      return this.taskRepository.save(task);
+    }
+    throw new Error('Task not found');
+  }
+
+  async remove(id: number, userId: number): Promise<void> {
+    const task = await this.taskRepository.findOne({ where: { id, userId } });
+    if (task) {
+      await this.taskRepository.delete(id);
+    }
   }
 }

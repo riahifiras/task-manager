@@ -11,11 +11,11 @@ interface AuthProps {
 }
 
 export function Auth({ onAuthenticated }: AuthProps) {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');  
   const [password, setPassword] = useState('');
 
   const loginMutation = useMutation(
-    () => taskService.login(email, password),
+    () => taskService.login(username, password),  
     {
       onSuccess: () => {
         onAuthenticated();
@@ -24,7 +24,7 @@ export function Auth({ onAuthenticated }: AuthProps) {
   );
 
   const signupMutation = useMutation(
-    () => taskService.signup(email, password),
+    () => taskService.signup(username, password),  
     {
       onSuccess: () => {
         onAuthenticated();
@@ -55,10 +55,10 @@ export function Auth({ onAuthenticated }: AuthProps) {
           <TabsContent value="login">
             <form onSubmit={(e) => handleSubmit(e, true)} className="space-y-4">
               <Input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"  
+                placeholder="Username"  
+                value={username}  
+                onChange={(e) => setUsername(e.target.value)}  
                 required
               />
               <Input
@@ -76,10 +76,10 @@ export function Auth({ onAuthenticated }: AuthProps) {
           <TabsContent value="signup">
             <form onSubmit={(e) => handleSubmit(e, false)} className="space-y-4">
               <Input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"  
+                placeholder="Username"  
+                value={username}  
+                onChange={(e) => setUsername(e.target.value)}  
                 required
               />
               <Input
@@ -99,4 +99,3 @@ export function Auth({ onAuthenticated }: AuthProps) {
     </Card>
   );
 }
-

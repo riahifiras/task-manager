@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { User } from '../auth/user.entity'; // Assuming User entity exists
 
 @Entity()
 export class Task {
@@ -13,4 +14,11 @@ export class Task {
 
   @Column({ default: false })
   isCompleted: boolean;
+
+  @ManyToOne(() => User, (user) => user.tasks)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column()
+  userId: number;  
 }
