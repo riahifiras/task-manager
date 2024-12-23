@@ -29,10 +29,11 @@ export class TaskService {
       throw new Error('Task not found');
     }
   
-    Object.assign(task, updateTask); 
+    Object.assign(task, updateTask);
     await this.taskRepository.save(task);
     return task;
   }
+  
   
 
   async remove(id: number, userId: number): Promise<void> {

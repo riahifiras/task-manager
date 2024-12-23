@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/button';
 const queryClient = new QueryClient();
 
 export default function Home() {
-  const [showForm, setShowForm] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -28,6 +27,10 @@ export default function Home() {
     setIsAuthenticated(false);
   };
 
+  const handleTaskComplete = () => {
+    queryClient.invalidateQueries('tasks');
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <main className="container mx-auto p-4">
@@ -35,14 +38,14 @@ export default function Home() {
         {isAuthenticated ? (
           <>
             <div className="flex justify-between items-center mb-4">
-              <Button onClick={() => setShowForm(!showForm)}>
-                {showForm ? 'Cancel' : 'Add New Task'}
-              </Button>
+              <TaskForm
+                onComplete={handleTaskComplete}
+                trigger={<Button>Add New Task</Button>}
+              />
               <Button onClick={handleLogout} variant="outline">
                 Logout
               </Button>
             </div>
-            {showForm && <TaskForm onComplete={() => setShowForm(false)} />}
             <TaskList />
           </>
         ) : (

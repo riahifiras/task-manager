@@ -34,7 +34,6 @@ export class TaskController {
   findOne(@Param('id') id: number, @Request() req): Promise<Task> {
     return this.taskService.findOne(id, req.user.userId);
   }
-
   @Patch(':id') 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Partially update a task by ID' })
@@ -42,12 +41,12 @@ export class TaskController {
   @ApiResponse({ status: 404, description: 'Task not found' })
   patch(
     @Param('id') id: number,
-    @Body() updateTask: { title?: string; description?: string; status?: string }, 
+    @Body() updateTask: { title?: string; description?: string; status?: 'TODO' | 'IN_PROGRESS' | 'DONE' }, 
     @Request() req,
   ): Promise<Task> {
     return this.taskService.patch(id, updateTask, req.user.userId);
   }
-
+  
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Delete a task by ID' })

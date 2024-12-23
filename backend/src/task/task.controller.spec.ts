@@ -64,19 +64,22 @@ describe('TaskController', () => {
   });
 
   describe('update', () => {
-    it('should update a task', async () => {
+    it('should update a task status', async () => {
       const updatedTask = new Task();
       updatedTask.id = 1;
-      updatedTask.title = 'Updated Task';
+      updatedTask.title = 'Task 1';
       updatedTask.description = 'Updated description';
+      updatedTask.status = 'DONE';
+  
       mockTaskService.patch.mockResolvedValue(updatedTask);
-
-      const patchData = { title: 'Updated Task', description: 'Updated description' };
-
+  
+      const patchData: { status: 'TODO' | 'IN_PROGRESS' | 'DONE' } = { status: 'DONE' };
+  
       expect(await taskController.patch(1, patchData, { user: { userId: 1 } })).toEqual(updatedTask);
-      expect(mockTaskService.patch).toHaveBeenCalledWith(1, patchData, 1); 
+      expect(mockTaskService.patch).toHaveBeenCalledWith(1, patchData, 1);
     });
   });
+  
 
   describe('remove', () => {
     it('should remove a task', async () => {

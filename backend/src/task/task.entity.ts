@@ -12,13 +12,13 @@ export class Task {
   @Column()
   description: string;
 
-  @Column({ default: false })
-  isCompleted: boolean;
+  @Column({ type: 'enum', enum: ['TODO', 'IN_PROGRESS', 'DONE'], default: 'TODO' })
+  status: 'TODO' | 'IN_PROGRESS' | 'DONE';
 
   @ManyToOne(() => User, (user) => user.tasks)
   @JoinColumn({ name: 'userId' })
   user: User;
 
   @Column()
-  userId: number;  
+  userId: number;
 }
