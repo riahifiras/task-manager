@@ -59,7 +59,7 @@ The frontend is located in the `frontend` directory. It uses **Next.js** for Rea
 
 2. Install the required dependencies:
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 3. Run the development server:
